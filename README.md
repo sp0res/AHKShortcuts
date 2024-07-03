@@ -28,9 +28,12 @@ That's it :).
 
 <br>
 
-<div id="header" align="center">
+<div style="display: flex; flex-direction: row; align-items: center; justify-content: center;">
 	
-<img src="https://lh3.googleusercontent.com/drive~viewer/AKGpihYVoRaPMeUSJEgrs4HcenSXk~BC770S_MvoyX2N47hhO1nOUrpGyEx17nRjnU~LFD8X_8dx30JKx853c4CpJAk2eTt7iWwxUoc=s2560"/> </a>
+Reference-style: 
+![alt text][logo]
+
+[logo]: https://github.com/sp0res/KB-Mouse-AHK/blob/ff9ee79a3827a613bb961d762ade7eaa1f1dd171/image-removebg-preview.png "ooh elden ring"
  
 </div>
 
