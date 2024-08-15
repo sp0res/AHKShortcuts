@@ -1,79 +1,82 @@
-; AHK SCRIPT TO ALLOW THE USE OF KEYBOARD KEYS ON THE LEFT SIDE OF THE KEYBOARD IN PLACE OF MOUSE BUTTONS
+; AHK SCRIPT TO ALLOW THE USE OF LEFT SHIFT AS MIDDLE MOUSE CLICK AND THE USE OFRIGHT MOUSE CLICK TO SCROLL BY DRAGGING A CLICK.
 
 ; <------------------------------------------------------------------------------------------>
 
-; Variable for tracking Left Windows key presses
-global winc_presses := 0
-global is_dragging := false
+#SingleInstance force
+#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
+SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 
-; <------------------------------------------------------------------------------------------>
+running := 0
 
-; Map LEFT WIN key to left click or middle click on triple press
+; === User settings ===
 
-LWin::
-    ; Check if dragging is already in progress
-    if (is_dragging)
-    {
-        Send, {LButton Down}
-        KeyWait, LWin
-        Send, {LButton Up}
-        is_dragging := false
-        return
-    }
+swap := false 
 
-    ; Check for triple click, if yes, do a middle mouse click
-    if (winc_presses > 0) ; SetTimer already started, so we log the keypress instead.
-    {
-        winc_presses += 1
-        if (winc_presses = 3)
-        {
-            winc_presses := 0
-            SetTimer, KeyWinC, Off
-            Send, {MButton}
-            return
-        }
-    }
-    else
-    {
-        winc_presses := 1
-        SetTimer, KeyWinC, -180 ; Wait 180 ms.
-    }
+horiz := false 				; use horizontal movement as input
 
-    ; Check for dragging
-    MouseGetPos, startX, startY
-    KeyWait, LWin, D
-    Sleep, 100 ; Allow some time for movement
-    MouseGetPos, endX, endY
-    if (startX != endX or startY != endY)
-    {
-        is_dragging := true
-        Send, {LButton Down}
-        KeyWait, LWin
-        Send, {LButton Up}
-        is_dragging := false
-        winc_presses := 0
-    }
+k := 1						; scroll speed coefficient (higher k means higher speed)
+
+; === Internal settings ===
+scrollsLimit := 36			; max amount of scroll at once 
+S := 18						; unit distance (higher S = lower speed)
+T := 15					; scan frequency in MS (
+
+; ==============
+
+dy := 0
+dyTotal := 0
+scrollsTotal := 0
+
+; #if running
+loop 
+{
+	sleep %T%
+
+	if (running) {
+		; mousegetpos, mx						; get current mouse position 
+		mousegetpos, mx, my						; get current mouse position 
+		if (horiz = 0) {
+			dy := k * (my - myLast)						; relative mouse movement vertical
+			myLast := my									; save position
+		} else {
+			dy := k * (mx - mxLast)						; relative mouse movement horizontal
+			mxLast := mx									; save position
+		}
+		dyTotal := dyTotal + dy
+		scrolls := dyTotal // S
+		dyTotal := dyTotal - scrolls * S					; calculate remainder after division
+		direction := (scrolls >= 0) ^ swap				; get direction
+		scrollsN := abs(scrolls)
+		scrollsTotal := scrollsTotal + scrollsN
+		n := min(scrollsN, scrollsLimit)
+		; tooltip,  %scrolls% -- %dy%
+		if (direction = 1) 
+			send, {wheeldown %n%} 
+		if (direction = 0) 
+			send, {wheelup %n%} 
+	}
+}
+
+rbutton::
+	running := 1
+	dyTotal := 0
+	mousegetpos, mxLast, myLast
 return
 
-KeyWinC:
-    if (!is_dragging)
-    {
-        winc_presses := 0
-        ; If no triple click, do normal left click
-        Send, {LButton Down}
-        KeyWait, LWin
-        Send, {LButton Up}
-    }
+rbutton up::
+	running := 0
+	if (scrollsTotal = 0) 
+		send {rbutton}
+	scrollsTotal := 0
 return
 
-; <------------------------------------------------------------------------------------------>
+; +esc:: ExitApp
 
-; Map alt key to right click
-
-LAlt::
-Send, {RButton Down}
-KeyWait, LAlt
-Send, {RButton Up}
+; Map left shift to Middle Click
+LShift::
+Send, {MButton Down}
+KeyWait, LShift
+Send, {MButton Up}
 return
 
 ; <------------------------------------------------------------------------------------------>
