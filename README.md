@@ -1,8 +1,5 @@
 # some cool productivity shortcuts made with ahk
 
-	Left Shift = Middle Mouse Click
-	Mouse Right Click + Drag Up or Down = Mouse Scrolling
- 
 AHK :
 
 	https://www.autohotkey.com
