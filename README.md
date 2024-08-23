@@ -17,5 +17,3 @@ AHK :
 [logo]: https://github.com/sp0res/KB-Mouse-AHK/blob/ff9ee79a3827a613bb961d762ade7eaa1f1dd171/image-removebg-preview.png "ooh elden ring"
  
 </div>
-
-## < ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ >
