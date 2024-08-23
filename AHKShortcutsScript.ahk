@@ -76,7 +76,6 @@ return
 
 SetTitleMatchMode,2
 
-
 return
 
 ^RButton::
@@ -125,12 +124,16 @@ CTRL + SHIFT E open explorer window
 CTRL + SHIFT W close explorer window
 */ 
 
+
 ; Map left shift to Middle Click
-LWin::
+
+~LShift::
+KeyWait LShift ;and use keywait on keys that autorepeat when held
+If (A_TimeSincePriorHotkey<400) and (A_PriorHotkey="~LShift") 
 	Send, {MButton Down}
-	KeyWait, LShift
-	Send, {MButton Up}
-return
+Sleep, 20
+Send, {MButton Up}
+Return
 
 ; Close the current Windows Explorer window
 #IfWinActive ahk_class CabinetWClass
