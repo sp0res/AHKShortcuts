@@ -1,5 +1,11 @@
-; #region mouse drag detection
+; system tray
+TrayIconFile:="D:\Pictures\! Ico icons\goofycat.ico" ; set this to the file with the icon
+Menu,Tray,Icon,%TrayIconFile%
 
+TrayTip:="augh"
+Menu,Tray,Tip,%TrayTip%
+
+; #region mouse drag detection
 #SingleInstance force
 #NoEnv ; Recommended for performance and compatibility with future AutoHotkey releases.
 SendMode Input ; Recommended for new scripts due to its superior speed and reliability.
@@ -129,10 +135,10 @@ CTRL + SHIFT W close explorer window
 
 ~LShift::
 KeyWait LShift ;and use keywait on keys that autorepeat when held
-If (A_TimeSincePriorHotkey<400) and (A_PriorHotkey="~LShift") 
+If (A_TimeSincePriorHotkey<365) and (A_PriorHotkey="~LShift") 
 	Send, {MButton Down}
 Sleep, 20
-Send, {MButton Up}
+	Send, {MButton Up}
 Return
 
 ; Close the current Windows Explorer window
