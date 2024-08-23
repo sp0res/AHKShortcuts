@@ -1,18 +1,11 @@
 # KB-Mouse-AHK
 
-## < ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ >
-
--- AHK script to allow the use of left shift as middle mouse click and the use ofright mouse click to scroll by dragging a click. --
-
-## Using the Script : 
-
-	Simply execute the script using AHK. 
-
-## AHK Download Page : 
+	Left Shift = Middle Mouse Click
+	Mouse Right Click + Drag Up or Down = Mouse Scrolling
+ 
+AHK :
 
 	https://www.autohotkey.com
-
-## < ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ >
 
 <br>
 
