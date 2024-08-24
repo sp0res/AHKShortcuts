@@ -4,7 +4,7 @@
 SendMode Input ; Recommended for new scripts due to its superior speed and reliability.
 
 ; system tray
-TrayIconFile:="D:\Pictures\! Ico icons\goofycat.ico" ; set this to the file with the icon
+TrayIconFile:="D:\Pictures\! Ico icons\goofycat2.ico" ; set this to the file with the icon
 Menu,Tray,Icon,%TrayIconFile%
 
 TrayTip:="augh"
