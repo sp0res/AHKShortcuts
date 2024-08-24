@@ -1,4 +1,8 @@
-; #region mouse drag detection
+; #region setup
+#SingleInstance force
+#NoEnv ; Recommended for performance and compatibility with future AutoHotkey releases.
+SendMode Input ; Recommended for new scripts due to its superior speed and reliability.
+
 ; system tray
 TrayIconFile:="D:\Pictures\! Ico icons\goofycat.ico" ; set this to the file with the icon
 Menu,Tray,Icon,%TrayIconFile%
@@ -6,19 +10,12 @@ Menu,Tray,Icon,%TrayIconFile%
 TrayTip:="augh"
 Menu,Tray,Tip,%TrayTip%
 
-#SingleInstance force
-#NoEnv ; Recommended for performance and compatibility with future AutoHotkey releases.
-SendMode Input ; Recommended for new scripts due to its superior speed and reliability.
-
-running := 0
-
-; User settings
+; click drag settings
 
 swap := false
 horiz := false 				; use horizontal movement as input
 k := 1						; scroll speed coefficient (higher k means higher speed)
 
-; Intersettings
 scrollsLimit := 36			; max amount of scroll at once
 S := 18						; unit distance (higher S = lower speed)
 T := 15					; scan frequency in MS (
@@ -27,8 +24,13 @@ dy := 0
 dyTotal := 0
 scrollsTotal := 0
 
-; #if running
-loop
+running := 0
+
+; #endregion setup
+
+; #region mouse drag detection
+
+loop ; #if running
 {
 	sleep %T%
 
@@ -127,9 +129,7 @@ CTRL + SHIFT E open explorer window
 CTRL + SHIFT W close explorer window
 */
 
-; Map left shift to Middle Click
-
-~LShift::
+~LShift:: ; Map left shift to Middle Click
 	KeyWait LShift ;and use keywait on keys that autorepeat when held
 	If (A_TimeSincePriorHotkey<365) and (A_PriorHotkey="~LShift")
 		Send, {MButton Down}
@@ -137,14 +137,12 @@ CTRL + SHIFT W close explorer window
 	Send, {MButton Up}
 Return
 
-; Close the current Windows Explorer window
-#IfWinActive ahk_class CabinetWClass
-	^+w:: ; Ctrl + Shift + W to close the window
+#IfWinActive ahk_class CabinetWClass ; Ctrl + Shift + W to close the current Windows Explorer window
+	^+w:: 
 		WinClose, A
 	return
 #IfWinActive
 
-; Open a new Windows Explorer window
 ^+e:: ; Ctrl + Shift + E to open a new window
 	Run, explorer.exe
 return
