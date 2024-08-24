@@ -1,3 +1,4 @@
+; #region mouse drag detection
 ; system tray
 TrayIconFile:="D:\Pictures\! Ico icons\goofycat.ico" ; set this to the file with the icon
 Menu,Tray,Icon,%TrayIconFile%
@@ -5,27 +6,22 @@ Menu,Tray,Icon,%TrayIconFile%
 TrayTip:="augh"
 Menu,Tray,Tip,%TrayTip%
 
-; #region mouse drag detection
 #SingleInstance force
 #NoEnv ; Recommended for performance and compatibility with future AutoHotkey releases.
 SendMode Input ; Recommended for new scripts due to its superior speed and reliability.
 
 running := 0
 
-; === User settings ===
+; User settings
 
 swap := false
-
 horiz := false 				; use horizontal movement as input
-
 k := 1						; scroll speed coefficient (higher k means higher speed)
 
-; === Internal settings ===
+; Intersettings
 scrollsLimit := 36			; max amount of scroll at once
 S := 18						; unit distance (higher S = lower speed)
 T := 15					; scan frequency in MS (
-
-; ==============
 
 dy := 0
 dyTotal := 0
@@ -60,6 +56,7 @@ loop
 			send, {wheelup %n%}
 	}
 }
+
 ; #endregion mouse drag detection
 
 ; #region RIGHT CLICK drag scroll
@@ -93,13 +90,13 @@ return
 	Sleep, 400
 	send {v}
 	WinWaitActive, Save, , 5
-	
+
 	ControlgetText, Filename, , Save
-	
+
 	ControlSetText, , O:\!023811737\LEAK6564561\!!bestleak\%FileName%, Save
-	
+
 	ControlClick , &Save, Save, , , , NA
-	
+
 return
 
 ^LButton::
@@ -111,33 +108,32 @@ return
 	Sleep, 400
 	send {v}
 	WinWaitActive, Save, , 5
-	
+
 	ControlgetText, Filename, , Save
-	
+
 	ControlSetText, , O:\!023811737\!!\%FileName%, Save
-	
+
 	ControlClick , &Save, Save, , , , NA
-	
+
 return
 
 return
 ; #endregion CTRL + RIGHT CLICK quick save
 
-; #region other shortcuts 
-/* 
+; #region other shortcuts
+/*
 LWIN middle mouse click
 CTRL + SHIFT E open explorer window
 CTRL + SHIFT W close explorer window
-*/ 
-
+*/
 
 ; Map left shift to Middle Click
 
 ~LShift::
-KeyWait LShift ;and use keywait on keys that autorepeat when held
-If (A_TimeSincePriorHotkey<365) and (A_PriorHotkey="~LShift") 
-	Send, {MButton Down}
-Sleep, 20
+	KeyWait LShift ;and use keywait on keys that autorepeat when held
+	If (A_TimeSincePriorHotkey<365) and (A_PriorHotkey="~LShift")
+		Send, {MButton Down}
+	Sleep, 20
 	Send, {MButton Up}
 Return
 
