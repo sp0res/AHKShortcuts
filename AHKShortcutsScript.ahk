@@ -1,4 +1,4 @@
-; #region setup
+; Setup
 #SingleInstance force
 #NoEnv ; Recommended for performance and compatibility with future AutoHotkey releases.
 SendMode Input ; Recommended for new scripts due to its superior speed and reliability.
@@ -25,8 +25,6 @@ dyTotal := 0
 scrollsTotal := 0
 
 running := 0
-
-; #endregion setup
 
 ; #region mouse drag detection
 
@@ -59,10 +57,11 @@ loop ; #if running
 	}
 }
 
-; #endregion mouse drag detection
+; mouse drag detection
 
-; #region RIGHT CLICK drag scroll
-rbutton::
+; RIGHT CLICK drag scroll
+
+rbutton:: 
 	running := 1
 	dyTotal := 0
 	mousegetpos, mxLast, myLast
@@ -75,15 +74,12 @@ rbutton up::
 	scrollsTotal := 0
 return
 
-; #endregion
-
-; #region CTRL + RIGHT CLICK quick save
-
 SetTitleMatchMode,2
 
 return
 
-^RButton::
+!RButton:: ; Alt + Right click quick save 1
+
 
 	Sleep, 80
 
@@ -101,7 +97,7 @@ return
 
 return
 
-^LButton::
+!LButton:: ; Alt + Left click quick save 2
 
 	Sleep, 80
 
@@ -120,9 +116,9 @@ return
 return
 
 return
-; #endregion CTRL + RIGHT CLICK quick save
 
-; #region other shortcuts
+; other shortcuts
+
 /*
 LWIN middle mouse click
 CTRL + SHIFT E open explorer window
@@ -137,15 +133,16 @@ CTRL + SHIFT W close explorer window
 	Send, {MButton Up}
 Return
 
-#IfWinActive ahk_class CabinetWClass ; Ctrl + Shift + W to close the current Windows Explorer window
+#IfWinActive ahk_class CabinetWClass ; Ctrl + Shift + W to restart current Windows Explorer window
 	^+w:: 
 		WinClose, A
+
+		Sleep, 20
+
+		Run, explorer.exe
 	return
 #IfWinActive
 
 ^+e:: ; Ctrl + Shift + E to open a new window
 	Run, explorer.exe
 return
-
-; #endregion other
-
