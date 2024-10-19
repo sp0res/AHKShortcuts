@@ -4,14 +4,13 @@
 SendMode Input ; Recommended for new scripts due to its superior speed and reliability.
 
 ; system tray
-TrayIconFile:="D:\Pictures\! Ico icons\goofycat2.ico" ; set this to the file with the icon
+TrayIconFile:="D:\Pictures\! Ico icons\silly.ico" ; set this to the file with the icon
 Menu,Tray,Icon,%TrayIconFile%
 
-TrayTip:="augh"
+TrayTip:="Alt+Tab To Pause Desktop Shortcuts"
 Menu,Tray,Tip,%TrayTip%
 
 ; click drag settings
-
 swap := false
 horiz := false 				; use horizontal movement as input
 k := 1						; scroll speed coefficient (higher k means higher speed)
@@ -85,7 +84,7 @@ return
 
 	Send {rbutton}
 
-	Sleep, 400
+	Sleep, 740
 	send {v}
 	WinWaitActive, Save, , 5
 
@@ -146,3 +145,7 @@ Return
 ^+e:: ; Ctrl + Shift + E to open a new window
 	Run, explorer.exe
 return
+
+; --------------------------------------------------------
+
+!Tab::Suspend  ; Alt+Tab
