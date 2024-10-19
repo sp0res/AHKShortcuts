@@ -1,3 +1,8 @@
+; system tray
+TrayIconFile:="D:\Pictures\! Ico icons\silly.ico" ; set this to the file with the icon
+
+Menu,Tray,Icon,%TrayIconFile%
+
 #SingleInstance, Force
 SendMode Input
 SetWorkingDir, %A_ScriptDir%
@@ -11,6 +16,7 @@ SetWorkingDir, %A_ScriptDir%
 ^q::Send ^+{Tab}
 
 ; Reopen Last Closed Tab (Ctrl + Tab)
-^Tab::Send ^+t
+!Tab::Send ^+t
+
 
 #IfWinActive
